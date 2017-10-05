@@ -34,8 +34,9 @@ export DEBOOTSTRAP_DIR=$CACHE_DIR/.tools/debootstrap/usr/share/debootstrap
 
 echo "-----> Fetching and installing debootstrap"
 cd $DEBOOTSTRAP_BUILD
-wget http://archive.ubuntu.com/ubuntu/pool/main/d/debootstrap/debootstrap_1.0.91ubuntu1_all.deb
-dpkg --install debootstrap_1.0.91ubuntu1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/main/d/debootstrap/debootstrap_1.0.91ubuntu1.tar.gz
+tar zxvf debootstrap_1.0.91ubuntu1.tar.gz
+cd debootstrap-1.0.91ubuntu1
 
 DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot make
 DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot make install
@@ -54,7 +55,7 @@ echo "fakechroot vendored" | indent
 cd $BUILDPACK_DIR
 echo "-----> Bootstraping a new base ubuntu lucid into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot lucid here http://old-releases.ubuntu.com/ubuntu/ $BUILD_DIR/.root
+fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot lucid $BUILD_DIR/.root
 fakechroot fakeroot chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
 
