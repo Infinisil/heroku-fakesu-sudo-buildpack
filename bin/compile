@@ -9,6 +9,8 @@ mktmpdir() {
   echo $dir
 }
 
+export PATH=$PATH:$BUILD/.apt/usr/share/bin
+
 function indent() {
   c='s/^/       /'
   case $(uname) in
@@ -49,12 +51,12 @@ echo "-----> Fetching and installing debootstrap"
 # tar zxvf debootstrap_1.0.91ubuntu1.tar.gz
 # cd debootstrap-1.0.91ubuntu1
 
-git clone https://salsa.debian.org/installer-team/debootstrap.git
-cd debootstrap
+# git clone https://salsa.debian.org/installer-team/debootstrap.git
+# cd debootstrap
 
-DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make
-DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make install
-echo "debootstrap installed" | indent
+# DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make
+# DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make install
+# echo "debootstrap installed" | indent
 
 echo "-----> Fetching, installing and vendoring fakechroot into /app/.tools/fakechroot/"
 cd $FAKECHROOT_BUILD
