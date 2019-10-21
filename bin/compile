@@ -72,7 +72,8 @@ echo "-----> Fetching, installing and vendoring fakechroot into /app/.tools/fake
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
 
-fakeroot ls
+fakeroot-tcp ls
+fakeroot-ng ls
 
 fakechroot -s fakeroot cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
