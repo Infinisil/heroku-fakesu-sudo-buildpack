@@ -75,6 +75,8 @@ mkdir -p $BUILD_DIR/.root
 
 fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp ls
 
+fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
+
 fakechroot -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/fakechroot/libfakechroot.so -s fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
