@@ -75,7 +75,7 @@ mkdir -p $BUILD_DIR/.root
 
 fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp ls -l $BUILD_DIR/.apt/usr/sbin
 
-multistrap -a amd64 -f $0/stretch.conf
+$BUILD_DIR/.apt/usr/sbin/multistrap -a amd64 -f $0/stretch.conf
 
 
 fakechroot -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/fakechroot/libfakechroot.so -s fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
