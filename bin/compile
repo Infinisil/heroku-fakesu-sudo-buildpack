@@ -71,7 +71,7 @@ echo "fakechroot vendored" | indent
 cd $BUILDPACK_DIR
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-fakechroot -s cdebootstrap --no-check-gpg --variant=fakechroot xenail $BUILD_DIR/.root
+fakechroot -s cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
 
@@ -81,8 +81,8 @@ echo "cd $HOME" >> $BUILD_DIR/.root/root/.bashrc
 
 echo "-----> Updating packages"
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root bash -c "cat > /etc/apt/sources.list <<EOF
-deb http://archive.ubuntu.com/ubuntu xenail main universe
-deb http://archive.ubuntu.com/ubuntu xenail-security main
+deb http://archive.ubuntu.com/ubuntu xenial main universe
+deb http://archive.ubuntu.com/ubuntu xenial-security main
 deb http://archive.ubuntu.com/ubuntu xenial-updates main
 EOF"
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get update
