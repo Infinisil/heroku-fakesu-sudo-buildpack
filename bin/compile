@@ -32,6 +32,8 @@ set -x
 
 echo $PATH
 
+ls -laR $BUILD_DIR
+
 whereis fakeroot
 whereis debootstrap
 
