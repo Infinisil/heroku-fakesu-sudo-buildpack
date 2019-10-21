@@ -9,7 +9,7 @@ mktmpdir() {
   echo $dir
 }
 
-export PATH=$PATH:$BUILD/.apt/usr/share/sbin
+export PATH=$PATH:$BUILD/.apt/usr/sbin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD/.apt/usr/lib/x86_64-linux-gnu/libfakeroot
 
 function indent() {
