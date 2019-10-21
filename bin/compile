@@ -17,6 +17,9 @@ function indent() {
   esac
 }
 
+apt update
+apt install fakeroot
+
 BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILD_DIR=$1
 CACHE_DIR=$2
