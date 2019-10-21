@@ -73,7 +73,8 @@ echo "-----> Fetching, installing and vendoring fakechroot into /app/.tools/fake
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
 
-fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked ls
+chroot $BUILD_DIR/.etc/ fakeroot-tcp
+
 fakeroot-ng ls
 
 fakechroot -s fakeroot cdebootstrap --variant=fakechroot xenial $BUILD_DIR/.root
