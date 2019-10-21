@@ -26,6 +26,8 @@ DEBOOTSTRAP_BUILD="$(mktmpdir debootstrap)"
 FAKECHROOT_BUILD="$(mktmpdir fakechroot)"
 DEFAULT_DEB_PACKAGES="aptitude git-core"
 
+set -x
+
 mkdir -p $BUILD_DIR/.tools/fakechroot
 mkdir -p $CACHE_DIR/.tools/{wget,debootstrap}
 
