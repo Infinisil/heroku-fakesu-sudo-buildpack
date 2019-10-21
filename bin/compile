@@ -17,10 +17,6 @@ function indent() {
   esac
 }
 
-echo $PATH
-
-whereis fakeroot
-whereis debootstrap
 
 BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILD_DIR=$1
@@ -32,6 +28,12 @@ FAKECHROOT_BUILD="$(mktmpdir fakechroot)"
 DEFAULT_DEB_PACKAGES="aptitude git-core"
 
 set -x
+
+
+echo $PATH
+
+whereis fakeroot
+whereis debootstrap
 
 mkdir -p $BUILD_DIR/.tools/fakechroot
 mkdir -p $CACHE_DIR/.tools/{wget,debootstrap}
