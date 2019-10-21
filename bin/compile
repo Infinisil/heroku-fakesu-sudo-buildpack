@@ -71,7 +71,7 @@ echo "fakechroot vendored" | indent
 cd $BUILDPACK_DIR
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-fakechroot -s fakeroot-ng debootstrap --no-check-gpg --variant=fakechroot xenail $BUILD_DIR/.root
+fakechroot -s cdebootstrap --no-check-gpg --variant=fakechroot xenail $BUILD_DIR/.root
 fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
 
