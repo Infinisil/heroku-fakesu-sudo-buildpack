@@ -59,16 +59,16 @@ echo "-----> Fetching and installing debootstrap"
 # echo "debootstrap installed" | indent
 
 echo "-----> Fetching, installing and vendoring fakechroot into /app/.tools/fakechroot/"
-cd $FAKECHROOT_BUILD
-git clone git://github.com/fabiokung/fakechroot.git
-cd fakechroot
-./autogen.sh
-./configure --prefix=$BUILD_DIR/.tools/fakechroot
-make
-make install
-echo "fakechroot vendored" | indent
+# cd $FAKECHROOT_BUILD
+# git clone git://github.com/fabiokung/fakechroot.git
+# cd fakechroot
+# ./autogen.sh
+# ./configure --prefix=$BUILD_DIR/.tools/fakechroot
+# make
+# make install
+# echo "fakechroot vendored" | indent
 
-cd $BUILDPACK_DIR
+# cd $BUILDPACK_DIR
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
 
