@@ -34,7 +34,7 @@ echo $PATH
 
 ls -laR $BUILD_DIR
 
-whereis fakeroot
+whereis fakeroot-ng
 whereis debootstrap
 
 mkdir -p $BUILD_DIR/.tools/fakechroot
@@ -52,8 +52,8 @@ echo "-----> Fetching and installing debootstrap"
 git clone https://salsa.debian.org/installer-team/debootstrap.git
 cd debootstrap
 
-DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot make
-DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot make install
+DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make
+DESTDIR=$CACHE_DIR/.tools/debootstrap fakeroot-ng make install
 echo "debootstrap installed" | indent
 
 echo "-----> Fetching, installing and vendoring fakechroot into /app/.tools/fakechroot/"
@@ -69,8 +69,8 @@ echo "fakechroot vendored" | indent
 cd $BUILDPACK_DIR
 echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot xenail $BUILD_DIR/.root
-fakechroot fakeroot chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
+fakechroot -s fakeroot-ng debootstrap --no-check-gpg --variant=fakechroot xenail $BUILD_DIR/.root
+fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
 
 sed -i -e "s/#force_color_prompt=yes/force_color_prompt=yes/" $BUILD_DIR/.root/root/.bashrc
@@ -78,13 +78,13 @@ echo "export PATH=/sbin:/usr/sbin:\$PATH" >> $BUILD_DIR/.root/root/.bashrc
 echo "cd $HOME" >> $BUILD_DIR/.root/root/.bashrc
 
 echo "-----> Updating packages"
-fakechroot fakeroot chroot $BUILD_DIR/.root bash -c "cat > /etc/apt/sources.list <<EOF
+fakechroot fakeroot-ng chroot $BUILD_DIR/.root bash -c "cat > /etc/apt/sources.list <<EOF
 deb http://archive.ubuntu.com/ubuntu xenail main universe
 deb http://archive.ubuntu.com/ubuntu xenail-security main
 deb http://archive.ubuntu.com/ubuntu xenial-updates main
 EOF"
-fakechroot fakeroot chroot $BUILD_DIR/.root apt-get update
-fakechroot fakeroot chroot $BUILD_DIR/.root apt-get -y install $DEFAULT_DEB_PACKAGES
+fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get update
+fakechroot fakeroot-ng chroot $BUILD_DIR/.root apt-get -y install $DEFAULT_DEB_PACKAGES
 echo "packages updated" | indent
 
 cd $BUILD_DIR/.root
