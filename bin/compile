@@ -8,6 +8,7 @@ mktmpdir() {
   mkdir -p $dir
   echo $dir
 }
+
 function indent() {
   c='s/^/       /'
   case $(uname) in
@@ -15,7 +16,6 @@ function indent() {
     *)      sed -u "$c";;
   esac
 }
-
 
 BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILD_DIR=$1
@@ -26,11 +26,6 @@ DEBOOTSTRAP_BUILD="$(mktmpdir debootstrap)"
 FAKECHROOT_BUILD="$(mktmpdir fakechroot)"
 DEFAULT_DEB_PACKAGES="aptitude git-core"
 
-set -x
-
-
-echo $PATH
-
 mkdir -p $BUILD_DIR/.tools/fakechroot
 mkdir -p $CACHE_DIR/.tools/{wget,debootstrap}
 
@@ -38,7 +33,6 @@ export PATH=/sbin:/usr/sbin:$PATH:$CACHE_DIR/.tools/wget/bin:$CACHE_DIR/.tools/d
 export DEBOOTSTRAP_DIR=$CACHE_DIR/.tools/debootstrap/usr/share/debootstrap
 
 echo "-----> Fetching and installing debootstrap"
-cd $DEBOOTSTRAP_BUILD
 
 git clone https://salsa.debian.org/installer-team/debootstrap.git
 cd debootstrap
@@ -57,16 +51,10 @@ make
 make install
 echo "fakechroot vendored" | indent
 
-# cd $BUILDPACK_DIR
-echo "-----> Bootstraping a new base ubuntu xenial into /app/.root/"
+cd $BUILDPACK_DIR
+echo "-----> Bootstraping a new base ubuntu trusty into /app/.root/"
 mkdir -p $BUILD_DIR/.root
-
-# fakeroot-tcp -l $BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/libfakeroot/libfakeroot-tcp.so --faked $BUILD_DIR/.apt/usr/bin/faked-tcp ls -l $BUILD_DIR/.apt/usr/sbin
-
-# $BUILD_DIR/.apt/usr/sbin/multistrap -a amd64 -f $0/stretch.conf
-
-
-fakechroot -s fakeroot --no-check-gpg --variant=fakechroot trusty $BUILD_DIR/.root
+fakechroot -s fakeroot debootstrap --no-check-gpg --variant=fakechroot trusty $BUILD_DIR/.root
 fakechroot fakeroot chroot $BUILD_DIR/.root apt-get install -y --force-yes gpgv
 echo "/app/.root bootstraped" | indent
 
