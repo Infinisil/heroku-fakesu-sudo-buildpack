@@ -8,10 +8,6 @@ mktmpdir() {
   mkdir -p $dir
   echo $dir
 }
-
-export PATH=$PATH:$BUILD/.apt/usr/sbin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD/.apt/usr/lib/x86_64-linux-gnu/libfakeroot
-
 function indent() {
   c='s/^/       /'
   case $(uname) in
@@ -43,9 +39,6 @@ export DEBOOTSTRAP_DIR=$CACHE_DIR/.tools/debootstrap/usr/share/debootstrap
 
 echo "-----> Fetching and installing debootstrap"
 cd $DEBOOTSTRAP_BUILD
-wget http://archive.ubuntu.com/ubuntu/pool/main/d/debootstrap/debootstrap_1.0.91ubuntu1.tar.gz
-tar zxvf debootstrap_1.0.91ubuntu1.tar.gz
-cd debootstrap-1.0.91ubuntu1
 
 git clone https://salsa.debian.org/installer-team/debootstrap.git
 cd debootstrap
